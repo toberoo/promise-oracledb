@@ -1,14 +1,14 @@
 # promise-oracledb
 Oracledb connect driver using Promises/A+
 
-**Installation:
+Installation:
 	-Requires the oracledb nodejs driver. Please see the documentation for how to install that dependency for your system.
 	-For Windows:
 	-Install Python 2.7
 	-Install Microsoft Visual Studio dev tools
 	-Run npm install promise-oracledb using the visual studio command prompt.
 
-**How to use:
+### How to use:
 
 	/*Create Connection*/
 	var db = require('promise-oracledb');
@@ -42,4 +42,4 @@ Oracledb connect driver using Promises/A+
 	query1.args = {};
 	query1.params ={};
 
-**TODO: thread pools
+### TODO: thread pools
