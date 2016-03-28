@@ -4,7 +4,7 @@
   "description": "Promise implementation of oracledb driver",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/spec.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/toberoo/promise-oracledb#readme",
   "dependencies": {
     "mocha": "^2.4.5",
+    "oracledb": "^1.8.0",
     "promise": "^7.1.1"
   }
 }
