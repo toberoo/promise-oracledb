@@ -29,7 +29,7 @@ Installation:
 	});
 
 	/*Execute Query*/
-	query1.execute(
+	query1.execute().then(
 		function(results) {
 			console.log(results);
 		},
