@@ -25,7 +25,7 @@ Installation:
 	var query1 = db.createQuery({
 		query: /*query*/,
 		params: /*oracle driver allows for parameterized values in the query.*/,
-		args: /*oracle driver allows some specific
+		args: /*oracle driver allows some specific arguments to be passed into queries*/
 	});
 
 	/*Execute Query*/
