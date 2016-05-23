@@ -1,5 +1,6 @@
 var Promise = require('promise');
 var oracledb = require('oracledb');
+var chalk require('chalk');
 
 module.exports = {
 
@@ -14,7 +15,7 @@ module.exports = {
 		params = params == null ? {} : params;
 		args = args == null ? {} : args;
 		return new Promise(function(resolve, reject) {
-			if (query == null) {reject('No Query Provided');}
+			if (query == null) reject('No Query Provided');
 			//Execute query
 			var execute = function(conn) {
 				conn.execute(query, params, args, function(err, result) {
@@ -25,6 +26,26 @@ module.exports = {
 			self.getConnection().then(function(conn) {
 				execute(conn);
 			});
+		});
+	},
+
+	//Will reject promise if there is no
+	closeConnection: function() {
+		return new Promise(function(resolve, reject) {
+			//Check for an existing connection.
+			if (this.getConnection() === undefined) reject('No connecton available');
+			//Close function
+			function close(conn) {
+				conn.close(function(err) {
+					//Reject on error
+					if (err) {
+						console.log(err);
+						reject(err);
+					}
+					resolve('Connection closed');
+				});
+			}
+			self.getConnection().then(close);
 		});
 	},
 
