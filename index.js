@@ -1,6 +1,6 @@
 var Promise = require('promise');
 var oracledb = require('oracledb');
-var chalk require('chalk');
+var chalk = require('chalk');
 
 module.exports = {
 
@@ -30,22 +30,16 @@ module.exports = {
 	},
 
 	//Will reject promise if there is no
-	closeConnection: function() {
+	close: function() {
+		var self = this;
 		return new Promise(function(resolve, reject) {
 			//Check for an existing connection.
-			if (this.getConnection() === undefined) reject('No connecton available');
-			//Close function
-			function close(conn) {
-				conn.close(function(err) {
-					//Reject on error
-					if (err) {
-						console.log(err);
-						reject(err);
-					}
-					resolve('Connection closed');
-				});
+			if (self.getConnection == null) {
+				reject('No connecton available');
 			}
-			self.getConnection().then(close);
+			self.getConnection().then(function(conn) {
+				resolve('Still in development')
+			});
 		});
 	},
 
