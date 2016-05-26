@@ -37,9 +37,13 @@ module.exports = {
 			if (self.getConnection == null) {
 				reject('No connecton available');
 			}
-			self.getConnection().then(function(conn) {
-				resolve('Still in development')
-			});
+			function closeConnection(conn) {
+				conn.release(function(err) {
+					if (err) reject(err);
+					resolve('Connection has closed');
+				});
+			}
+			self.getConnection().then(closeConnection);
 		});
 	},
 
