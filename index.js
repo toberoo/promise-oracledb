@@ -17,14 +17,19 @@ module.exports = {
 		return new Promise(function(resolve, reject) {
 			if (query == null) reject('No Query Provided');
 			//Execute query
-			var execute = function(conn) {
+			var execute = function(conn, currTime) {
 				conn.execute(query, params, args, function(err, result) {
-					err != null ? reject(err) : resolve(result);
+					if(err != null) {
+						reject(err)
+					}
+					result.time = (new Date()).getTime() - currTime;
+					resolve(result);
 				});
 			};
 			//Get Connection
 			self.getConnection().then(function(conn) {
-				execute(conn);
+				//Execute query with the current time
+				execute(conn, (new Date()).getTime());
 			});
 		});
 	},

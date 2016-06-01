@@ -19,6 +19,7 @@ describe('Test Promise Oracle Database', function() {
 		.execute()
 		.then(function(result) {
 			assert.equal(result.rows[0], 'X');
+			console.log(result);
 			//Close database
 			db.close().then(function(result) {
 				console.log(result);
