@@ -4,9 +4,9 @@ var chalk = require('chalk');
 
 module.exports = {
 
-	Format: {
-		JSON: oracledb.OBJECT,
-		array: oracledb.ARRAY
+	format: {
+		OBJECT: oracledb.OBJECT,
+		ARRAY: oracledb.ARRAY
 	},
 
 	getSqlResults: function(query, params, args) {
@@ -56,19 +56,25 @@ module.exports = {
 	/**
 		user:
 		password:
-		connectstring:
-		useJSONResultFormat: //boolean
+		connectString:
+		useJSONFormat: //boolean
 	*/
-	setConnection: function(options, useJSONResultFormat) {
+	setConnection: function(options, redactedUseJSONFormat) {
 
-		//Set out format to json
-		if (useJSONResultFormat != null && useJSONResultFormat == true) {
-			oracledb.outFormat = this.Format.JSON;
+		//Set out format to json if selected
+		if (options.useJSONFormat === true || redactedUseJSONFormat === true) {
+			oracledb.outFormat = oracledb.OBJECT;
+		}
+
+		var connectOptions = {
+			user: options.user,
+			password: options.password,
+			connectString: options.connectString
 		}
 
 		//Create the promise using the options provided
 		var promise = new Promise(function(resolve, reject) {
-			oracledb.getConnection(options, function(err, connection) {
+			oracledb.getConnection(connectOptions, function(err, connection) {
 				//Reject the error
 				if (err) {
 					console.log(err);

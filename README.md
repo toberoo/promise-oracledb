@@ -15,8 +15,9 @@ Installation:
 	db.setConnection({
 		user: /*username*/,
 		password: /*password*/,
-		connectstring: /*oracle connection string. please see their documentation*/
-	}, /*This param, if set to true, will output results as json*/);
+		connectString: /*oracle connection string. please see their documentation*/,
+		useJSONFormat: /*This param, if set to true, will output results as json*/
+	});
 
 	/*If you would like to use the driver only for getting the connection, you can now
 	use db.getConnection().then(function(conn){/*callback*/}) */
@@ -32,6 +33,16 @@ Installation:
 	query1.execute().then(
 		function(results) {
 			console.log(results);
+			/* results is an object with:
+				rows: ['Array with result set. Will be arrays
+					    or objects depending on how
+					    you set it in create connection.'],
+				metadata: [{'name': 'Tables accessed and other info'}],
+				time: 'Time in milliseconds as a number. Approximation and is effected by
+				       the machine executing the code as opposed to the database itself. Still useful
+				       for performace metrics'
+
+			*/
 		},
 		function(err) {
 			console.log(err);
