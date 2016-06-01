@@ -17,12 +17,15 @@ module.exports = {
 		return new Promise(function(resolve, reject) {
 			if (query == null) reject('No Query Provided');
 			//Execute query
+			self.logger.log('Executing Query %s', [query]);
 			var execute = function(conn, currTime) {
 				conn.execute(query, params, args, function(err, result) {
 					if(err != null) {
+						self.logger.logError(err);
 						reject(err)
 					}
 					result.time = (new Date()).getTime() - currTime;
+					self.logger.logSuccess('Query finished in: ' + result.time + ' ms');
 					resolve(result);
 				});
 			};
@@ -40,11 +43,16 @@ module.exports = {
 		return new Promise(function(resolve, reject) {
 			//Check for an existing connection.
 			if (self.getConnection == null) {
+				self.logger.logError('No Connection available');
 				reject('No connecton available');
 			}
 			function closeConnection(conn) {
 				conn.release(function(err) {
-					if (err) reject(err);
+					if (err) {
+						self.logger.logError(err);
+						reject(err);
+					}
+					self.logger.logSuccess('Connection has closed')
 					resolve('Connection has closed');
 				});
 			}
@@ -76,19 +84,19 @@ module.exports = {
 		}
 
 		//Log
-		logger.log('Attempting connection to %s as %s', [options.connectString, options.user]);
+		logger.log('\nAttempting connection to %s as %s', [options.connectString, options.user]);
 
 		//Create the promise using the options provided
 		var promise = new Promise(function(resolve, reject) {
 			oracledb.getConnection(connectOptions, function(err, connection) {
 				//Reject the error
 				if (err) {
-					console.log(err);
+					logger.log(err);
 					reject(err);
 				//Resolve the connection
-				} else {
-					resolve(connection);
 				}
+				logger.logSuccess('Connection is successful')
+				resolve(connection);
 			});
 		});
 

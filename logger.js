@@ -8,7 +8,10 @@ module.exports = (function Logger() {
 	function genericLog(message, highlights, color) {
 		//If logging is not enabled
 		if (this.enableMessaging === false) return;
-		message = chalk.bold(message);
+		if (highlights === undefined) {
+			console.log(color(message));
+			return;
+		}
 		highlights.forEach(function(word) {
 			message = message.replace(/%s/, color(word));
 		});
@@ -16,7 +19,7 @@ module.exports = (function Logger() {
 	}
 
 	Logger.prototype.log = function(message, highlights) {
-		genericLog(message, highlights, chalk.blue);
+		genericLog(message, highlights, chalk.bold);
 	}
 
 	Logger.prototype.logError = function(message, highlights) {
