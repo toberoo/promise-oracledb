@@ -11,7 +11,8 @@ describe('Test Promise Oracle Database', function() {
 		db.setConnection({
 			user: process.env.DB_QC_USERNAME,
 			password: process.env.DB_QA_PASSWORD,
-			connectString: process.env.DB_QC_CONNECT_STRING
+			connectString: process.env.DB_QC_CONNECT_STRING,
+			enableLogging: true
 		});
 		db.createQuery({
 			query: 'SELECT * FROM DUAL'
@@ -19,10 +20,9 @@ describe('Test Promise Oracle Database', function() {
 		.execute()
 		.then(function(result) {
 			assert.equal(result.rows[0], 'X');
-			console.log(result);
 			//Close database
 			db.close().then(function(result) {
-				console.log(result);
+				//console.log(result);
 				done();
 			}, function(err) {
 				assert.equal(err, undefined);

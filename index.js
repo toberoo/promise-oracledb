@@ -1,6 +1,6 @@
 var Promise = require('promise');
+var Logger = require('./logger');
 var oracledb = require('oracledb');
-var chalk = require('chalk');
 
 module.exports = {
 
@@ -61,6 +61,9 @@ module.exports = {
 	*/
 	setConnection: function(options, redactedUseJSONFormat) {
 
+		//Create the logger
+		var logger = this.logger = new Logger(options.enableLogging);
+
 		//Set out format to json if selected
 		if (options.useJSONFormat === true || redactedUseJSONFormat === true) {
 			oracledb.outFormat = oracledb.OBJECT;
@@ -71,6 +74,9 @@ module.exports = {
 			password: options.password,
 			connectString: options.connectString
 		}
+
+		//Log
+		logger.log('Attempting connection to %s as %s', [options.connectString, options.user]);
 
 		//Create the promise using the options provided
 		var promise = new Promise(function(resolve, reject) {
