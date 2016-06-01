@@ -16,7 +16,8 @@ Installation:
 		user: /*username*/,
 		password: /*password*/,
 		connectString: /*oracle connection string. please see their documentation*/,
-		useJSONFormat: /*This param, if set to true, will output results as json*/
+		useJSONFormat: /*Optional: This param, if set to true, will output results as json*/,
+		enableLogging: /*Optional: If true, will show logging in the console*/
 	});
 
 	/*If you would like to use the driver only for getting the connection, you can now
