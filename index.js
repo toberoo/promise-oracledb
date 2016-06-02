@@ -25,7 +25,7 @@ module.exports = {
 						reject(err)
 					}
 					result.time = (new Date()).getTime() - currTime;
-					self.logger.log('Query finished in: %s', [result.time + 'ms']);
+					self.logger.logSuccess('Query %s in: %s', ['finished', result.time + 'ms']);
 					resolve(result);
 				});
 			};
@@ -52,7 +52,7 @@ module.exports = {
 						self.logger.logError(err);
 						reject(err);
 					}
-					self.logger.logSuccess('Connection has closed')
+					self.logger.log('Connection has closed')
 					resolve('Connection has closed');
 				});
 			}
@@ -103,7 +103,7 @@ module.exports = {
 		this.getConnection = function() {
 			return promise;
 		}
-			logger.logSuccess('Connected');
+			logger.log('Connected');
 	},
 
 	/*	Options parameters:
