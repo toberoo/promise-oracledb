@@ -25,7 +25,7 @@ module.exports = {
 						reject(err)
 					}
 					result.time = (new Date()).getTime() - currTime;
-					self.logger.logSuccess('Query finished in: ' + result.time + ' ms');
+					self.logger.log('Query finished in: %s', [result.time + 'ms']);
 					resolve(result);
 				});
 			};
@@ -94,16 +94,16 @@ module.exports = {
 					logger.log(err);
 					reject(err);
 				//Resolve the connection
+				} else {
+					resolve(connection);
 				}
-				logger.logSuccess('Connection is successful')
-				resolve(connection);
 			});
 		});
-
 		//Set the function for retreiving database connections
 		this.getConnection = function() {
 			return promise;
 		}
+			logger.logSuccess('Connected');
 	},
 
 	/*	Options parameters:

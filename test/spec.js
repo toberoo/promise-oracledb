@@ -6,7 +6,7 @@ describe('Test Promise Oracle Database', function() {
 	   test without revealing database information.
 	*/
 
-	it ('Close Test', function(done) {
+	it ('Query1', function(done) {
 		this.timeout(12000);
 		db.setConnection({
 			user: process.env.DB_QC_USERNAME,
@@ -14,6 +14,17 @@ describe('Test Promise Oracle Database', function() {
 			connectString: process.env.DB_QC_CONNECT_STRING,
 			enableLogging: true
 		});
+		db.createQuery({
+			query: 'SELECT * FROM DUAL'
+		})
+		.execute()
+		.then(function(result) {
+			done();
+		});
+	});
+
+	it ('Query2', function(done) {
+		this.timeout(12000);
 		db.createQuery({
 			query: 'SELECT * FROM DUAL'
 		})
