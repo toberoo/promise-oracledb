@@ -35,14 +35,12 @@ Installation:
 		function(results) {
 			console.log(results);
 			/* results is an object with:
-				rows: ['Array with result set. Will be arrays
-					    or objects depending on how
-					    you set it in create connection.'],
-				metadata: [{'name': 'Tables accessed and other info'}],
-				time: 'Time in milliseconds as a number. Approximation and is effected by
-				       the machine executing the code as opposed to the database itself. Still useful
-				       for performace metrics'
-
+			rows: ['Array with result set. Will be arrays
+				    or objects depending on how
+				    you set it in create connection.'],
+			metadata: [{'name': 'Tables accessed and other info'}],
+			time: 'Apporimation in milliseconds of how long the query took to execute. Still useful
+			       for performace metrics'
 			*/
 		},
 		function(err) {

@@ -1,6 +1,6 @@
 {
   "name": "promise-oracledb",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Promise implementation of oracledb driver",
   "main": "index.js",
   "scripts": {
