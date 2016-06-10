@@ -7,7 +7,7 @@ module.exports = (function Logger() {
 
 	function genericLog(message, highlights, color) {
 		//If logging is not enabled
-		if (this.enableMessaging === false) return;
+		if (this.enableMessaging === false || this.enableMessaging === undefined) return;
 		if (highlights === undefined) {
 			console.log(color(message));
 			return;
